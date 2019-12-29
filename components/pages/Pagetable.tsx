@@ -1,6 +1,14 @@
 import Page from "../../model/Page";
 
+interface Column {
+  title: string,
+  attr: string,
+  width: number,
+  align: "center" | "justify" | "left" | "right" | "char" | undefined
+};
+
 interface Props<T> {
+  columns: Column[];
   children: any;
   page: Page<T>;
   controls: {
@@ -8,7 +16,7 @@ interface Props<T> {
     nextPage: () => void
   };
   actions: Array<any>
-}
+};
 
 export default function Pagetable<T>(props: Props<T>) {
 
@@ -43,7 +51,9 @@ export default function Pagetable<T>(props: Props<T>) {
           <table>
               <thead>
                   <tr>
-                      {props.children}
+                    {props.columns.map((c: Column) =>
+                      <th key={c.attr} style={{width: c.width}} align={c.align}>{c.title}</th>
+                    )}
                   </tr>
               </thead>
               <tbody style={{height: bodyHeight}}>
@@ -68,61 +78,61 @@ export default function Pagetable<T>(props: Props<T>) {
           }
           
           .Pagetable--tableActions {
-              position: fixed;
-              line-height: 30px;
-              margin: auto;
-              display: flex;
-              flex-direction: row-reverse;
-              transform: translateX(-100%);
+            position: fixed;
+            line-height: 30px;
+            margin: auto;
+            display: flex;
+            flex-direction: row-reverse;
+            transform: translateX(-100%);
           }
           .Pagetable--tableActions > * {
-              height: 18px;
-              margin: 6px;
-              cursor: pointer;
-              opacity: 0;
-              transition: 0.2s;
+            height: 18px;
+            margin: 6px;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.2s;
           }
           .Pagetable table > tbody > tr:hover > .Pagetable--tableActions > * {
-              opacity: 0.4;
+            opacity: 0.4;
           }
           .Pagetable table > tbody > tr:hover > .Pagetable--tableActions > *:hover {
-              opacity: 0.8;
+            opacity: 0.8;
           }
           .Pagetable th, .Pagetable td {
-              padding-left: 8px;
-              padding-right: 8px;
+            padding-left: 8px;
+            padding-right: 8px;
           }
           .Pagetable--empty-row, .Pagetable--empty-row:hover {
-              color: transparent;
-              background-color: transparent;
-              border-color: transparent;
+            color: transparent;
+            background-color: transparent;
+            border-color: transparent;
           }
           
           .Pagetable--footer {
-              display: flex;
-              flex-direction: row;
-              justify-content: space-between;
-              height: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            height: 50px;
           }
           .Pagetable--footer input[type=button] {
-              height: 100%;
-              background: transparent;
-              border: 1px solid #e6e6e6;
-              color: #666;
-              text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
-              transition: 0.3s;
-              cursor: pointer;
+            height: 100%;
+            background: transparent;
+            border: 1px solid #e6e6e6;
+            color: #666;
+            text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+            transition: 0.3s;
+            cursor: pointer;
           }
           .Pagetable--footer input[type=button]:hover {
-              background: white;
-              color: #333;
-              border-color: #d6d6d6;
+            background: white;
+            color: #333;
+            border-color: #d6d6d6;
           }
           .Pagetable--footer input[type=button]:first-child {
-              border-width: 0 1px 0 0;
+            border-width: 0 1px 0 0;
           }
           .Pagetable--footer input[type=button]:last-child {
-              border-width: 0 0 0 1px;
+            border-width: 0 0 0 1px;
           }
           `}</style>
       </div>

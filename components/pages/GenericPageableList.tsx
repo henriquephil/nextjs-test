@@ -30,10 +30,7 @@ export default function GenericPageableList<T>(props: any) {
   return (
       <div className="GenericPageableList">
           <div className="GenericPageableList--table">
-              <Pagetable page={page} actions={props.recordActions} controls={{previousPage, nextPage}}>
-                  {props.columns.map((th: any) =>
-                      <th key={th.key} style={{width: th.width}} align={th.align} resolve={th.resolve}>{th.descricao}</th>
-                  )}
+              <Pagetable columns={props.columns} page={page} actions={props.recordActions} controls={{previousPage, nextPage}}>
               </Pagetable>
           </div>
           <div className="GenericPageableList--side">
